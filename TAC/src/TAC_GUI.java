@@ -17,7 +17,7 @@ public class TAC_GUI extends Application {
 
 	Image startLogo = new Image("flower2.png");
 	ImageView iv_startLogo= new ImageView(startLogo);
-	
+	Functions functions=new Functions();
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -85,6 +85,19 @@ public class TAC_GUI extends Application {
 			drawRegPane(stage);
 		});
 		
+		//Login durchführen
+		btn_login.setOnAction(e->
+		{
+			if(functions.correctLoginFunctions(tf_login.getText(), tf_password.getText())==true)
+			{
+				//Auf die nächste Oberfläche wechseln
+			}
+			else
+			{
+				//Meldung anzeigen ("Diesen Benutzer gibt es nicht")
+			}
+		});
+		
 		stage.setTitle("TAC - Start");
 		stage.sizeToScene();
 		stage.setResizable(false);
@@ -144,6 +157,16 @@ public class TAC_GUI extends Application {
 				start(stage);
 			} catch (Exception e1) {
 				e1.printStackTrace();
+			}
+		});
+		
+		//Button zum registrieren
+		btn_next.setOnAction(e->
+		{
+			//Passwort = Passwortwiederholung?
+			if(tf_regPassword.getText().equals(tf_regPasswordRepeat.getText())==true)
+			{
+				functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
 			}
 		});
 		
