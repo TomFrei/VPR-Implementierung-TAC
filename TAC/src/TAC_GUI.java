@@ -15,17 +15,17 @@ import javafx.stage.Stage;
 
 public class TAC_GUI extends Application {
 
-	public static void main(String[] args) {
-		launch(args);
+	Image startLogo = new Image("flower2.png");
+	ImageView iv_startLogo= new ImageView(startLogo);
+	
 
-	}
 
 	@Override
 	public void start(Stage stage) throws Exception {
 		
 
-		Image startLogo = new Image("flower2.png");
-		ImageView iv_startLogo= new ImageView(startLogo);
+		startLogo = new Image("flower2.png");
+		iv_startLogo= new ImageView(startLogo);
 		
 		BorderPane pane = new BorderPane();
 		
@@ -70,6 +70,7 @@ public class TAC_GUI extends Application {
 		pane.setBottom(hboxBottom);
 		pane.setCenter(vbox);
 		
+		// Setzt den Fokus auf das Username Texfeld bei Start
 		Platform.runLater(new Runnable() {
 		    @Override
 		    public void run() {
@@ -79,11 +80,83 @@ public class TAC_GUI extends Application {
 		
 		Scene scene = new Scene(pane);
 		
+		
+		btn_reg.setOnAction(e -> {
+			drawRegPane(stage);
+		});
+		
 		stage.setTitle("TAC - Start");
 		stage.sizeToScene();
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	public void drawRegPane(Stage stage) {
+		
+		BorderPane pane = new BorderPane();
+		
+		Label l_regUsername = new Label("Username");
+		Label l_regShwonName = new Label("Anzeigename");
+		Label l_password = new Label("Passwort");
+		Label l_passwordRepeat = new Label("Passwort wiederholen");
+		
+		TextField tf_regUsername = new TextField();
+		TextField tf_regShownName = new TextField();
+		TextField tf_regPassword = new TextField();
+		TextField tf_regPasswordRepeat = new TextField();
+		
+		Button btn_back = new Button("Zurück");
+		Button btn_next = new Button("Weiter");
+		
+		VBox vbox = new VBox();
+			vbox.getChildren().addAll(l_regUsername,tf_regUsername,l_regShwonName,tf_regShownName,l_password,tf_regPassword,l_passwordRepeat,tf_regPasswordRepeat);
+			vbox.setAlignment(Pos.TOP_CENTER);
+			vbox.setSpacing(10);
+		
+		VBox vboxLeft = new VBox();
+			vboxLeft.setPadding(new Insets(150));
+		
+		VBox vboxRight = new VBox();
+			vboxRight.setPadding(new Insets(150));
+		
+		HBox hboxTop = new HBox();
+			hboxTop.setPadding(new Insets(100));
+			hboxTop.getChildren().add(iv_startLogo);
+			hboxTop.setAlignment(Pos.CENTER);
+		
+		HBox hboxBottom = new HBox();
+			hboxBottom.setPadding(new Insets(30));
+			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
+			hboxBottom.setSpacing(10);
+			hboxBottom.getChildren().addAll(btn_back,btn_next);
+		
+		pane.setRight(vboxRight);
+		pane.setLeft(vboxLeft);
+		pane.setTop(hboxTop);
+		pane.setBottom(hboxBottom);
+		pane.setCenter(vbox);
+		
+		
+		btn_back.setOnAction(e->{
+			try {
+				start(stage);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
+		
+		Scene scene = new Scene(pane);
+		stage.setTitle("TAC - Registrieren");
+		stage.sizeToScene();
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.show();
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 }
