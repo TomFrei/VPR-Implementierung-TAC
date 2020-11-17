@@ -19,7 +19,6 @@ public class TAC_GUI extends Application {
 	ImageView iv_startLogo= new ImageView(startLogo);
 	
 
-
 	@Override
 	public void start(Stage stage) throws Exception {
 		
@@ -35,6 +34,7 @@ public class TAC_GUI extends Application {
 		
 		Button btn_login = new Button("Login");
 		Button btn_reg = new Button("Registrieren");
+		Button btn_end = new Button("Beenden");
 		
 		TextField tf_login = new TextField();
 			tf_login.setMaxWidth(130);
@@ -62,7 +62,7 @@ public class TAC_GUI extends Application {
 			hboxBottom.setPadding(new Insets(30));
 			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
 			hboxBottom.getChildren().addAll(l_reg,btn_reg);
-		
+			
 
 		pane.setRight(vboxRight);
 		pane.setLeft(vboxLeft);
@@ -92,6 +92,7 @@ public class TAC_GUI extends Application {
 		stage.show();
 	}
 	
+	// Zeichnet das Registrierungsfenster
 	public void drawRegPane(Stage stage) {
 		
 		BorderPane pane = new BorderPane();
@@ -137,12 +138,11 @@ public class TAC_GUI extends Application {
 		pane.setBottom(hboxBottom);
 		pane.setCenter(vbox);
 		
-		
+		// Zurückbutton zeichnet wieder die Start-Pane
 		btn_back.setOnAction(e->{
 			try {
 				start(stage);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		});
