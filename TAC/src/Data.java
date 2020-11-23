@@ -13,7 +13,14 @@ public class Data
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			connection = DriverManager.getConnection("jdbc:derby:Benutzer.db;create=true");
 			statement = connection.createStatement();
-			statement.executeUpdate("CREATE TABLE Benutzer(Benutzername VARCHAR(64), Anzeigename VARCHAR(64), Passwort VARCHAR(64))");
+			//statement.executeUpdate("CREATE TABLE Benutzer(Benutzername VARCHAR(64), Anzeigename VARCHAR(64), Passwort VARCHAR(64))");
+			ResultSet rs=statement.executeQuery("SELECT * FROM Benutzer");
+			
+			while(rs.next())
+			{
+				System.out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3));
+			}
+			
 		} 
 		catch (Exception e)
 		{
@@ -50,11 +57,14 @@ public class Data
 			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
 			connection = DriverManager.getConnection("jdbc:derby:Benutzer.db");
 			statement = connection.createStatement();
-			ResultSet rs=statement.executeQuery("SELECT * FROM Benutzer WHERE Benutzername=" + username);
+			ResultSet rs=statement.executeQuery("SELECT * FROM Benutzer WHERE Benutzername='" + username + "'");
 			
-			if(password.equals(rs.getString(3)))
+			while(rs.next())
 			{
-				return true;
+				if(password.equals(rs.getString(3)))
+				{
+					return true;
+				}
 			}
 		} 
 		catch (Exception e)
