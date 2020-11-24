@@ -1,4 +1,3 @@
-
 public class Functions
 {
 	Data data=new Data();
@@ -11,5 +10,10 @@ public class Functions
 	public void registerFunctions(String username, String displayedName, String password)
 	{
 		data.registerData(username, displayedName, password);
+	}
+	
+	public void showNameFunctions(String username)
+	{
+		data.showNameData(username);
 	}
 }

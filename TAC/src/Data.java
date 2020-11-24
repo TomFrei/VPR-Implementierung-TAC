@@ -128,4 +128,47 @@ public class Data
 			}
 		}
 	}
+	
+	//Abrufen des Anzeigenamens
+	public String showNameData(String username)
+	{
+		Connection connection = null;
+		Statement statement = null;
+		
+		try
+		{
+			Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+			connection = DriverManager.getConnection("jdbc:derby:Benutzer.db");
+			statement = connection.createStatement();
+			ResultSet rs=statement.executeQuery("SELECT * FROM Benutzer WHERE Benutzername='" + username + "'");
+			
+			while(rs.next())
+			{
+				return rs.getString(2);
+			}
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try
+			{
+				if (statement != null)
+				{
+					statement.close();
+				}
+				if (connection != null)
+				{
+					connection.close();
+				}
+			}
+			catch (SQLException e)
+			{
+				System.out.println("Error: SQLException: " + e.getMessage());
+			}
+		}
+		return null;
+	}
 }
