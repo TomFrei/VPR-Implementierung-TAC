@@ -168,6 +168,10 @@ public class TAC_GUI extends Application {
 			{
 				functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
 			}
+			else
+			{
+				//Falsche Wiederholung
+			}
 		});
 		
 		Scene scene = new Scene(pane);
