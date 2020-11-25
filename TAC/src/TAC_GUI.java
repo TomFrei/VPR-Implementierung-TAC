@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
 
@@ -20,6 +21,7 @@ public class TAC_GUI extends Application {
 	ImageView iv_startLogo= new ImageView(startLogo);
 	Functions functions=new Functions();
 
+	TextField tf_login = new TextField();
 	@Override
 	public void start(Stage stage) throws Exception {
 		
@@ -38,7 +40,7 @@ public class TAC_GUI extends Application {
 		Button btn_opt = new Button("Optionen");
 		Button btn_end = new Button("Beenden");
 		
-		TextField tf_login = new TextField();
+		
 			tf_login.setMaxWidth(130);
 		
 		TextField tf_password = new TextField();
@@ -98,6 +100,7 @@ public class TAC_GUI extends Application {
 			{
 				//Auf die nächste Oberfläche wechseln
 				System.out.println(functions.showNameFunctions(tf_login.getText()));
+				drawLobby(stage);
 			}
 			else
 			{
@@ -263,6 +266,68 @@ public class TAC_GUI extends Application {
 			stage.show();
 	}
 	
+	
+	public void drawLobby(Stage stage) {
+		
+	BorderPane pane = new BorderPane();
+		
+		Label l_greet = new Label("Wilkommen "+ functions.showNameFunctions(tf_login.getText()));
+			l_greet.setPadding(new Insets(0,0,50,0));
+			l_greet.setFont(new Font(24));
+			
+		Button btn_host = new Button("Spiel Hosten");
+			btn_host.setMinWidth(100);
+		Button btn_join = new Button("Spiel beitreten");
+			btn_join.setMinWidth(100);
+		Button btn_logout = new Button("Abmelden");
+			btn_logout.setMinWidth(100);
+		Button btn_quit = new Button("Beenden");
+			btn_quit.setMinWidth(100);
+		
+		VBox vbox = new VBox();
+			vbox.getChildren().addAll(l_greet,btn_host,btn_join,btn_logout,btn_quit);
+			vbox.setAlignment(Pos.TOP_CENTER);
+			vbox.setSpacing(10);
+		
+		VBox vboxLeft = new VBox();
+			vboxLeft.setPadding(new Insets(150));
+			
+			
+		VBox vboxRight = new VBox();
+			vboxRight.setPadding(new Insets(150));
+			
+			
+		HBox hboxTop = new HBox();
+			hboxTop.setPadding(new Insets(100));
+			hboxTop.setAlignment(Pos.TOP_LEFT);
+			iv_startLogo.setScaleX(0.5);
+			iv_startLogo.setScaleY(0.5);
+			hboxTop.getChildren().addAll(iv_startLogo);
+		
+		
+		HBox hboxBottom = new HBox();
+			hboxBottom.setPadding(new Insets(30));
+			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
+			hboxBottom.setSpacing(10);
+			
+		
+		pane.setRight(vboxRight);
+		pane.setLeft(vboxLeft);
+		pane.setTop(hboxTop);
+		pane.setBottom(hboxBottom);
+		pane.setCenter(vbox);
+		
+
+		
+		
+		Scene scene = new Scene(pane);
+		stage.setTitle("TAC - Lobby");
+		stage.sizeToScene();
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}
