@@ -12,8 +12,8 @@ public class Functions
 		data.registerData(username, displayedName, password);
 	}
 	
-	public void showNameFunctions(String username)
+	public String showNameFunctions(String username)
 	{
-		data.showNameData(username);
+		return data.showNameData(username);
 	}
 }
