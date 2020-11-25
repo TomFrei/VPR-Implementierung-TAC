@@ -12,6 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.control.ComboBox;
 
 public class TAC_GUI extends Application {
 
@@ -34,6 +35,7 @@ public class TAC_GUI extends Application {
 		
 		Button btn_login = new Button("Login");
 		Button btn_reg = new Button("Registrieren");
+		Button btn_opt = new Button("Optionen");
 		Button btn_end = new Button("Beenden");
 		
 		TextField tf_login = new TextField();
@@ -61,7 +63,7 @@ public class TAC_GUI extends Application {
 		HBox hboxBottom = new HBox();
 			hboxBottom.setPadding(new Insets(30));
 			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
-			hboxBottom.getChildren().addAll(l_reg,btn_reg);
+			hboxBottom.getChildren().addAll(l_reg,btn_reg,btn_opt);
 			
 
 		pane.setRight(vboxRight);
@@ -85,12 +87,17 @@ public class TAC_GUI extends Application {
 			drawRegPane(stage);
 		});
 		
+		btn_opt.setOnAction(e -> {
+			drawOptPane(stage);
+		});
+		
 		//Login durchführen
 		btn_login.setOnAction(e->
 		{
 			if(functions.correctLoginFunctions(tf_login.getText(), tf_password.getText())==true)
 			{
 				//Auf die nächste Oberfläche wechseln
+				System.out.println(functions.showNameFunctions(tf_login.getText()));
 			}
 			else
 			{
@@ -180,6 +187,80 @@ public class TAC_GUI extends Application {
 		stage.setResizable(false);
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	// Zeichnet das Optionenfenster
+	public void drawOptPane(Stage stage) {
+			
+			BorderPane pane = new BorderPane();
+			
+			Label l_colorscheme = new Label("Farbschema");
+			Label l_carddesign = new Label("Kartendesign");
+			
+			ComboBox<String> cb_colorscheme = new ComboBox<>();
+			ComboBox<String> cb_carddesign= new ComboBox<>();
+			
+			//Inhalte der ComboBoxen
+			cb_colorscheme.getItems().addAll("Beispiel1", "Beispiel2");
+			cb_colorscheme.setValue(cb_colorscheme.getItems().get(0));
+			cb_carddesign.getItems().addAll("Beispiel1", "Beispiel2", "Beispiel3");
+			cb_carddesign.setValue(cb_carddesign.getItems().get(0));
+			
+			cb_colorscheme.setOnAction(e->
+			{
+				//Ändern des Farbschemas
+			});
+			
+			cb_carddesign.setOnAction(e->
+			{
+				//Ändern des Kartendesigns
+			});
+			
+			Button btn_back = new Button("Zurück");
+			
+			VBox vbox = new VBox();
+				vbox.getChildren().addAll(l_colorscheme, cb_colorscheme, l_carddesign, cb_carddesign);
+				vbox.setAlignment(Pos.TOP_CENTER);
+				vbox.setSpacing(10);
+				
+			VBox vboxLeft = new VBox();
+				vboxLeft.setPadding(new Insets(150));
+			
+			VBox vboxRight = new VBox();
+				vboxRight.setPadding(new Insets(150));
+			
+			HBox hboxTop = new HBox();
+				hboxTop.setPadding(new Insets(100));
+				hboxTop.getChildren().add(iv_startLogo);
+				hboxTop.setAlignment(Pos.CENTER);
+			
+			HBox hboxBottom = new HBox();
+				hboxBottom.setPadding(new Insets(30));
+				hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
+				hboxBottom.setSpacing(10);
+				hboxBottom.getChildren().addAll(btn_back);
+			
+			// Zurückbutton zeichnet wieder die Start-Pane
+			btn_back.setOnAction(e->{
+				try {
+					start(stage);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			});
+			
+			pane.setRight(vboxRight);
+			pane.setLeft(vboxLeft);
+			pane.setTop(hboxTop);
+			pane.setBottom(hboxBottom);
+			pane.setCenter(vbox);
+			
+			Scene scene = new Scene(pane);
+			stage.setTitle("TAC - Optionen");
+			stage.sizeToScene();
+			stage.setResizable(false);
+			stage.setScene(scene);
+			stage.show();
 	}
 	
 	public static void main(String[] args) {
