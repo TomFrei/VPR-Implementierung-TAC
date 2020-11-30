@@ -34,6 +34,7 @@ public class TAC_GUI extends Application {
 		Label l_login = new Label("Username");
 		Label l_password = new Label("Password");
 		Label l_reg = new Label("Noch nicht registriert? ");
+		Label l_success = new Label("");
 		
 		Button btn_login = new Button("Login");
 		Button btn_reg = new Button("Registrieren");
@@ -47,7 +48,7 @@ public class TAC_GUI extends Application {
 			tf_password.setMaxWidth(130);
 			
 		VBox vbox = new VBox();
-			vbox.getChildren().addAll(l_login,tf_login,l_password,tf_password,btn_login);
+			vbox.getChildren().addAll(l_login,tf_login,l_password,tf_password,btn_login,l_success);
 			vbox.setAlignment(Pos.TOP_CENTER);
 			vbox.setSpacing(10);
 			
@@ -65,7 +66,7 @@ public class TAC_GUI extends Application {
 		HBox hboxBottom = new HBox();
 			hboxBottom.setPadding(new Insets(30));
 			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
-			hboxBottom.getChildren().addAll(l_reg,btn_reg,btn_opt);
+			hboxBottom.getChildren().addAll(l_reg,btn_reg,btn_opt,btn_end);
 			
 
 		pane.setRight(vboxRight);
@@ -93,6 +94,10 @@ public class TAC_GUI extends Application {
 			drawOptPane(stage);
 		});
 		
+		btn_end.setOnAction(e -> {
+			Platform.exit();
+		});
+		
 		//Login durchführen
 		btn_login.setOnAction(e->
 		{
@@ -104,7 +109,7 @@ public class TAC_GUI extends Application {
 			}
 			else
 			{
-				//Meldung anzeigen ("Diesen Benutzer gibt es nicht")
+				l_success.setText("Login fehlerhaft");
 			}
 		});
 		
@@ -124,6 +129,7 @@ public class TAC_GUI extends Application {
 		Label l_regShwonName = new Label("Anzeigename");
 		Label l_password = new Label("Passwort");
 		Label l_passwordRepeat = new Label("Passwort wiederholen");
+		Label l_success = new Label("");
 		
 		TextField tf_regUsername = new TextField();
 		TextField tf_regShownName = new TextField();
@@ -131,7 +137,7 @@ public class TAC_GUI extends Application {
 		TextField tf_regPasswordRepeat = new TextField();
 		
 		Button btn_back = new Button("Zurück");
-		Button btn_next = new Button("Weiter");
+		Button btn_next = new Button("Fertig");
 		
 		VBox vbox = new VBox();
 			vbox.getChildren().addAll(l_regUsername,tf_regUsername,l_regShwonName,tf_regShownName,l_password,tf_regPassword,l_passwordRepeat,tf_regPasswordRepeat);
@@ -153,7 +159,7 @@ public class TAC_GUI extends Application {
 			hboxBottom.setPadding(new Insets(30));
 			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
 			hboxBottom.setSpacing(10);
-			hboxBottom.getChildren().addAll(btn_back,btn_next);
+			hboxBottom.getChildren().addAll(l_success,btn_back,btn_next);
 		
 		pane.setRight(vboxRight);
 		pane.setLeft(vboxLeft);
@@ -177,10 +183,11 @@ public class TAC_GUI extends Application {
 			if(tf_regPassword.getText().equals(tf_regPasswordRepeat.getText())==true)
 			{
 				functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
+				l_success.setText("Erfolgreich registriert");
 			}
 			else
 			{
-				//Falsche Wiederholung
+				l_success.setText("Die Passwortwiederholung ist fehlerhaft");
 			}
 		});
 		
@@ -317,8 +324,17 @@ public class TAC_GUI extends Application {
 		pane.setBottom(hboxBottom);
 		pane.setCenter(vbox);
 		
-
+		btn_logout.setOnAction(e -> {
+			try {
+				start(stage);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 		
+		btn_quit.setOnAction(e -> {
+			Platform.exit();
+		});
 		
 		Scene scene = new Scene(pane);
 		stage.setTitle("TAC - Lobby");
