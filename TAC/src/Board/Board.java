@@ -15,6 +15,10 @@ public class Board extends Application {
         launch(args);
     }
 
+    public void open(Stage stage) {
+        start(stage);
+    }
+
     @Override
     public void start(Stage primaryStage) {
 

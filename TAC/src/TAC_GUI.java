@@ -1,3 +1,4 @@
+import Board.Board;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -323,7 +324,15 @@ public class TAC_GUI extends Application {
 		pane.setTop(hboxTop);
 		pane.setBottom(hboxBottom);
 		pane.setCenter(vbox);
-		
+
+		btn_host.setOnAction(e -> {
+			try {
+				new Board().start(stage);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
+
 		btn_logout.setOnAction(e -> {
 			try {
 				start(stage);
