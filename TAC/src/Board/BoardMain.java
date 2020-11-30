@@ -16,6 +16,8 @@ public class BoardMain extends Application {
         Scene scene = new Scene(root);
         stage.initStyle(StageStyle.UTILITY);
 
+
+
         stage.setTitle("Tac");
         stage.setScene(scene);
         stage.show();
