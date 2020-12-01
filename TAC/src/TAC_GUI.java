@@ -188,13 +188,23 @@ public class TAC_GUI extends Application {
 			//Passwort = Passwortwiederholung?
 			if(tf_regPassword.getText().equals(tf_regPasswordRepeat.getText())==true)
 			{
-				functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
-				try {
-					start(stage);
-				} catch (Exception e1) {
-					e1.printStackTrace();
+				if(functions.usernameExistsFunctions(tf_regUsername.getText())==false)
+				{
+					functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
+					try {
+						start(stage);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					tf_login.setText(tf_regUsername.getText());
 				}
-				tf_login.setText(tf_regUsername.getText());
+				else
+				{
+					alert.setTitle("Hinweis");
+			        alert.setHeaderText("Fehlermeldung:");
+			        alert.setContentText("Der Benutzer existiert schon");	 
+			        alert.showAndWait();
+				}
 			}
 			else
 			{
