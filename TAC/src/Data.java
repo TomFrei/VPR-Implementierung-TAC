@@ -92,6 +92,53 @@ public class Data
 		return false;
 	}
 	
+	//Testet, ob der Benutzername schon in der Datenbank existiert
+		public boolean usernameExistsData(String username)
+		{
+			Connection connection = null;
+			Statement statement = null;
+			
+			try
+			{
+				Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+				connection = DriverManager.getConnection("jdbc:derby:Benutzer.db");
+				statement = connection.createStatement();
+				ResultSet rs=statement.executeQuery("SELECT * FROM Benutzer WHERE Benutzername='" + username + "'");
+				
+				if(rs.next())
+				{
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			} 
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try
+				{
+					if (statement != null)
+					{
+						statement.close();
+					}
+					if (connection != null)
+					{
+						connection.close();
+					}
+				}
+				catch (SQLException e)
+				{
+					System.out.println("Error: SQLException: " + e.getMessage());
+				}
+			}
+			return false;
+		}
+	
 	//Fügt eingegebenen Werte in die Datenbank ein
 	public void registerData(String username, String displayedName, String password)
 	{

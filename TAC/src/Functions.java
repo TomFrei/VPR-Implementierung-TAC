@@ -7,6 +7,11 @@ public class Functions
 		return data.correctLoginData(username, password);
 	}
 	
+	public boolean usernameExistsFunctions(String username)
+	{
+		return data.usernameExistsData(username);
+	}
+	
 	public void registerFunctions(String username, String displayedName, String password)
 	{
 		data.registerData(username, displayedName, password);
