@@ -2,3 +2,9 @@
 .idea/
 
 TAC/TAC.iml
+
+Benutzer.db/
+
+derby.log
+
+out/

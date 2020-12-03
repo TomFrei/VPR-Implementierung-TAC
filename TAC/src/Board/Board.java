@@ -15,10 +15,6 @@ public class Board extends Application {
         launch(args);
     }
 
-    public void open(Stage stage) {
-        start(stage);
-    }
-
     @Override
     public void start(Stage primaryStage) {
 
@@ -32,15 +28,15 @@ public class Board extends Application {
         player1.getChildren().addAll(player1Name);
 
         VBox player2 = new VBox();
-        Label player2Name = new Label("Player 2 (YOU)");
+        Label player2Name = new Label("Player 2");
         player2.getChildren().addAll(player2Name);
 
         VBox player3 = new VBox();
-        Label player3Name = new Label("Player 3 (YOU)");
+        Label player3Name = new Label("Player 3");
         player3.getChildren().addAll(player3Name);
 
         VBox player4 = new VBox();
-        Label player4Name = new Label("Player 4 (YOU)");
+        Label player4Name = new Label("Player 4");
         player4.getChildren().addAll(player4Name);
 
         HBox cardContainer = new HBox();
