@@ -15,14 +15,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class TAC_GUI extends Application {
 
 	Image startLogo = new Image("flower2.png");
 	ImageView iv_startLogo= new ImageView(startLogo);
 	Functions functions=new Functions();
-
 	TextField tf_login = new TextField();
+	Alert alert = new Alert(AlertType.ERROR);
+	
 	@Override
 	public void start(Stage stage) throws Exception {
 		
@@ -35,7 +38,6 @@ public class TAC_GUI extends Application {
 		Label l_login = new Label("Username");
 		Label l_password = new Label("Password");
 		Label l_reg = new Label("Noch nicht registriert? ");
-		Label l_success = new Label("");
 		
 		Button btn_login = new Button("Login");
 		Button btn_reg = new Button("Registrieren");
@@ -49,7 +51,7 @@ public class TAC_GUI extends Application {
 			tf_password.setMaxWidth(130);
 			
 		VBox vbox = new VBox();
-			vbox.getChildren().addAll(l_login,tf_login,l_password,tf_password,btn_login,l_success);
+			vbox.getChildren().addAll(l_login,tf_login,l_password,tf_password,btn_login);
 			vbox.setAlignment(Pos.TOP_CENTER);
 			vbox.setSpacing(10);
 			
@@ -110,10 +112,14 @@ public class TAC_GUI extends Application {
 			}
 			else
 			{
-				l_success.setText("Login fehlerhaft");
+				alert.setTitle("Hinweis");
+		        alert.setHeaderText("Fehlermeldung:");
+		        alert.setContentText("Login fehlerhaft");	 
+		        alert.showAndWait();
 			}
 		});
 		
+		stage.getIcons().add(new Image("file:src/Karten/Karte_100.png"));
 		stage.setTitle("TAC - Start");
 		stage.sizeToScene();
 		stage.setResizable(false);
@@ -130,7 +136,6 @@ public class TAC_GUI extends Application {
 		Label l_regShwonName = new Label("Anzeigename");
 		Label l_password = new Label("Passwort");
 		Label l_passwordRepeat = new Label("Passwort wiederholen");
-		Label l_success = new Label("");
 		
 		TextField tf_regUsername = new TextField();
 		TextField tf_regShownName = new TextField();
@@ -160,7 +165,7 @@ public class TAC_GUI extends Application {
 			hboxBottom.setPadding(new Insets(30));
 			hboxBottom.setAlignment(Pos.BASELINE_RIGHT);
 			hboxBottom.setSpacing(10);
-			hboxBottom.getChildren().addAll(l_success,btn_back,btn_next);
+			hboxBottom.getChildren().addAll(btn_back,btn_next);
 		
 		pane.setRight(vboxRight);
 		pane.setLeft(vboxLeft);
@@ -183,12 +188,30 @@ public class TAC_GUI extends Application {
 			//Passwort = Passwortwiederholung?
 			if(tf_regPassword.getText().equals(tf_regPasswordRepeat.getText())==true)
 			{
-				functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
-				l_success.setText("Erfolgreich registriert");
+				if(functions.usernameExistsFunctions(tf_regUsername.getText())==false)
+				{
+					functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
+					try {
+						start(stage);
+					} catch (Exception e1) {
+						e1.printStackTrace();
+					}
+					tf_login.setText(tf_regUsername.getText());
+				}
+				else
+				{
+					alert.setTitle("Hinweis");
+			        alert.setHeaderText("Fehlermeldung:");
+			        alert.setContentText("Der Benutzer existiert schon");	 
+			        alert.showAndWait();
+				}
 			}
 			else
 			{
-				l_success.setText("Die Passwortwiederholung ist fehlerhaft");
+		        alert.setTitle("Hinweis");
+		        alert.setHeaderText("Fehlermeldung:");
+		        alert.setContentText("Die Passwortwiederholung ist fehlerhaft");	 
+		        alert.showAndWait();
 			}
 		});
 		
@@ -273,7 +296,6 @@ public class TAC_GUI extends Application {
 			stage.setScene(scene);
 			stage.show();
 	}
-	
 	
 	public void drawLobby(Stage stage) {
 		
