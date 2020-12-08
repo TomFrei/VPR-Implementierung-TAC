@@ -104,18 +104,28 @@ public class TAC_GUI extends Application {
 		//Login durchführen
 		btn_login.setOnAction(e->
 		{
-			if(functions.correctLoginFunctions(tf_login.getText(), tf_password.getText())==true)
-			{
-				//Auf die nächste Oberfläche wechseln
-				System.out.println(functions.showNameFunctions(tf_login.getText()));
-				drawLobby(stage);
-			}
-			else
+			if(tf_login.getText().equals(""))
 			{
 				alert.setTitle("Hinweis");
 		        alert.setHeaderText("Fehlermeldung:");
-		        alert.setContentText("Login fehlerhaft");	 
+		        alert.setContentText("Bitte einen Benutzernamen eingeben");	 
 		        alert.showAndWait();
+			}
+			else
+			{
+				if(functions.correctLoginFunctions(tf_login.getText(), tf_password.getText())==true)
+				{
+					//Auf die nächste Oberfläche wechseln
+					System.out.println(functions.showNameFunctions(tf_login.getText()));
+					drawLobby(stage);
+				}
+				else
+				{
+					alert.setTitle("Hinweis");
+			        alert.setHeaderText("Fehlermeldung:");
+			        alert.setContentText("Login fehlerhaft");	 
+			        alert.showAndWait();
+				}
 			}
 		});
 		
@@ -185,34 +195,67 @@ public class TAC_GUI extends Application {
 		//Button zum registrieren
 		btn_next.setOnAction(e->
 		{
-			//Passwort = Passwortwiederholung?
-			if(tf_regPassword.getText().equals(tf_regPasswordRepeat.getText())==true)
+			//Benutzername leer?
+			if(tf_regUsername.getText().equals(""))
 			{
-				if(functions.usernameExistsFunctions(tf_regUsername.getText())==false)
-				{
-					functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
-					try {
-						start(stage);
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-					tf_login.setText(tf_regUsername.getText());
-				}
-				else
+				alert.setTitle("Hinweis");
+		        alert.setHeaderText("Fehlermeldung:");
+		        alert.setContentText("Bitte einen Benutzernamen eingeben");	 
+		        alert.showAndWait();
+			}
+		    else
+		    {
+		    	//Anzeigename leer?
+		    	if(tf_regShownName.getText().equals(""))
 				{
 					alert.setTitle("Hinweis");
 			        alert.setHeaderText("Fehlermeldung:");
-			        alert.setContentText("Der Benutzer existiert schon");	 
+			        alert.setContentText("Bitte einen Anzeigenamen eingeben");	 
 			        alert.showAndWait();
 				}
-			}
-			else
-			{
-		        alert.setTitle("Hinweis");
-		        alert.setHeaderText("Fehlermeldung:");
-		        alert.setContentText("Die Passwortwiederholung ist fehlerhaft");	 
-		        alert.showAndWait();
-			}
+		    	else
+		    	{
+		    		//Passwort leer?
+		    		if(tf_regPassword.getText().equals(""))
+					{
+						alert.setTitle("Hinweis");
+				        alert.setHeaderText("Fehlermeldung:");
+				        alert.setContentText("Bitte ein Passwort eingeben");	 
+				        alert.showAndWait();
+					}
+		    		else
+		    		{
+						//Passwort = Passwortwiederholung?
+						if(tf_regPassword.getText().equals(tf_regPasswordRepeat.getText())==true)
+						{
+							if(functions.usernameExistsFunctions(tf_regUsername.getText())==false)
+							{
+								functions.registerFunctions(tf_regUsername.getText(), tf_regShownName.getText(), tf_regPassword.getText());
+								try {
+									start(stage);
+								} catch (Exception e1) {
+									e1.printStackTrace();
+								}
+								tf_login.setText(tf_regUsername.getText());
+							}
+							else
+							{
+								alert.setTitle("Hinweis");
+						        alert.setHeaderText("Fehlermeldung:");
+						        alert.setContentText("Der Benutzer existiert schon");	 
+						        alert.showAndWait();
+							}
+						}
+						else
+						{
+					        alert.setTitle("Hinweis");
+					        alert.setHeaderText("Fehlermeldung:");
+					        alert.setContentText("Die Passwortwiederholung ist fehlerhaft");	 
+					        alert.showAndWait();
+						}
+		    		}
+		    	}
+		    }
 		});
 		
 		Scene scene = new Scene(pane);
