@@ -1,11 +1,15 @@
 package Board;
 
+//import com.sun.prism.paint.Color;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.HBox;
@@ -14,10 +18,13 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.transform.Rotate;
-
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 public class Board extends Application {
 
+	private boolean selected=false;
+	
     public static void main(String[] args) {
         launch(args);
     }
@@ -78,6 +85,37 @@ public class Board extends Application {
         
     
         	test0.setGraphic(kugel);
+        	
+        	//Hintergrund beim Hovern
+        	test0.setOnMouseEntered(e ->
+        	{
+        		if(selected==false)
+        		{
+        			test0.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
+        		}
+        	});
+        	
+        	test0.setOnMouseExited(e ->
+        	{
+        		if(selected==false)
+        		{
+        			test0.setBackground(null);
+        		}
+        	});
+        	
+        	test0.setOnMouseClicked(e ->
+        	{
+        		if(selected==false)
+        		{
+        			selected=true;
+        			test0.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
+        		}
+        		else
+        		{
+        			test0.setBackground(null);
+        			selected=false;
+        		}
+        	});
         	
         	//Kugel skalieren
         	kugel.setPreserveRatio(true);
