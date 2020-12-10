@@ -23,7 +23,8 @@ import javafx.scene.paint.Color;
 
 public class Board extends Application {
 
-	private boolean selected=false;
+	private boolean selectedCard=false;
+	private boolean selectedBall=false;
 	
     public static void main(String[] args) {
         launch(args);
@@ -56,19 +57,42 @@ public class Board extends Application {
         HBox cardContainer = new HBox();
         
         VBox card1 = new VBox();
+        card1.setPadding(new Insets(15));
         Label card1Name = new Label("Card 1");
-        card1.getChildren().addAll(card1Name);
+        ImageView card1Pic = new ImageView("Karten/Karte_1.png");
+        card1Pic.setPreserveRatio(true);
+    	card1Pic.setFitHeight(150);
+        card1.getChildren().addAll(card1Name, card1Pic);
         VBox card2 = new VBox();
+        card2.setPadding(new Insets(15));
         Label card2Name = new Label("Card 2");
-        card2.getChildren().addAll(card2Name);
+        ImageView card2Pic = new ImageView("Karten/Karte_2.png");
+        card2Pic.setPreserveRatio(true);
+    	card2Pic.setFitHeight(150);
+    	card2.getChildren().addAll(card2Name, card2Pic);
         VBox card3 = new VBox();
+        card3.setPadding(new Insets(15));
         Label card3Name = new Label("Card 3");
-        card3.getChildren().addAll(card3Name);
+        ImageView card3Pic = new ImageView("Karten/Karte_3.png");
+        card3Pic.setPreserveRatio(true);
+    	card3Pic.setFitHeight(150);
+    	card3.getChildren().addAll(card3Name, card3Pic);
         VBox card4 = new VBox();
+        card4.setPadding(new Insets(15));
         Label card4Name = new Label("Card 4");
-        card4.getChildren().addAll(card4Name);
+        ImageView card4Pic = new ImageView("Karten/Karte_4.png");
+        card4Pic.setPreserveRatio(true);
+    	card4Pic.setFitHeight(150);
+    	card4.getChildren().addAll(card4Name, card4Pic);
+        VBox card5 = new VBox();
+        card5.setPadding(new Insets(15));
+        Label card5Name = new Label("Card 5");
+        ImageView card5Pic = new ImageView("Karten/Karte_5.png");
+        card5Pic.setPreserveRatio(true);
+    	card5Pic.setFitHeight(150);
+    	card5.getChildren().addAll(card5Name, card5Pic);
 
-        cardContainer.getChildren().addAll(card1, card2, card3, card4);
+        cardContainer.getChildren().addAll(card1, card2, card3, card4, card5);
 
         playerContainer.getChildren().addAll(player1, player2, player3, player4);
 
@@ -80,16 +104,15 @@ public class Board extends Application {
  
         
         Label test0 = new Label();
-        	test0.relocate(300,575);
+        test0.relocate(300,575);
         ImageView kugel = new ImageView("marbleBlue.png");
         
-    
         	test0.setGraphic(kugel);
         	
-        	//Hintergrund beim Hovern
+        	//Hintergrund der Kugel beim Hovern
         	test0.setOnMouseEntered(e ->
         	{
-        		if(selected==false)
+        		if(selectedBall==false)
         		{
         			test0.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
         		}
@@ -97,7 +120,7 @@ public class Board extends Application {
         	
         	test0.setOnMouseExited(e ->
         	{
-        		if(selected==false)
+        		if(selectedBall==false)
         		{
         			test0.setBackground(null);
         		}
@@ -105,15 +128,191 @@ public class Board extends Application {
         	
         	test0.setOnMouseClicked(e ->
         	{
-        		if(selected==false)
+        		if(selectedBall==false)
         		{
-        			selected=true;
+        			selectedBall=true;
         			test0.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
         		}
         		else
         		{
         			test0.setBackground(null);
-        			selected=false;
+        			selectedBall=false;
+        		}
+        	});
+        	
+        //Hardcode kommt später weg
+        	//Hintergrund der Karten beim Hovern
+        	card1.setOnMouseEntered(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card1.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
+        		}
+        	});
+        	
+        	card1.setOnMouseExited(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card1.setBackground(null);
+        		}
+        	});
+        	
+        	card1.setOnMouseClicked(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			selectedCard=true;
+        			card1.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
+        		}
+        		else
+        		{
+        			card1.setBackground(null);
+        			card2.setBackground(null);
+        			card3.setBackground(null);
+        			card4.setBackground(null);
+        			card5.setBackground(null);
+        			selectedCard=false;
+        		}
+        	});
+        	
+        	//Hintergrund der Karten beim Hovern
+        	card2.setOnMouseEntered(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card2.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
+        		}
+        	});
+        	
+        	card2.setOnMouseExited(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card2.setBackground(null);
+        		}
+        	});
+        	
+        	card2.setOnMouseClicked(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			selectedCard=true;
+        			card2.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
+        		}
+        		else
+        		{
+        			card1.setBackground(null);
+        			card2.setBackground(null);
+        			card3.setBackground(null);
+        			card4.setBackground(null);
+        			card5.setBackground(null);
+        			selectedCard=false;
+        		}
+        	});
+        	
+        	//Hintergrund der Karten beim Hovern
+        	card3.setOnMouseEntered(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card3.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
+        		}
+        	});
+        	
+        	card3.setOnMouseExited(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card3.setBackground(null);
+        		}
+        	});
+        	
+        	card3.setOnMouseClicked(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			selectedCard=true;
+        			card3.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
+        		}
+        		else
+        		{
+        			card1.setBackground(null);
+        			card2.setBackground(null);
+        			card3.setBackground(null);
+        			card4.setBackground(null);
+        			card5.setBackground(null);
+        			selectedCard=false;
+        		}
+        	});
+        	
+        	//Hintergrund der Karten beim Hovern
+        	card4.setOnMouseEntered(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card4.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
+        		}
+        	});
+        	
+        	card4.setOnMouseExited(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card4.setBackground(null);
+        		}
+        	});
+        	
+        	card4.setOnMouseClicked(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			selectedCard=true;
+        			card4.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
+        		}
+        		else
+        		{
+        			card1.setBackground(null);
+        			card2.setBackground(null);
+        			card3.setBackground(null);
+        			card4.setBackground(null);
+        			card5.setBackground(null);
+        			selectedCard=false;
+        		}
+        	});
+        	
+        	//Hintergrund der Karten beim Hovern
+        	card5.setOnMouseEntered(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card5.setBackground(new Background(new BackgroundFill(Color.RED, new CornerRadii(5), new Insets(-3))));
+        		}
+        	});
+        	
+        	card5.setOnMouseExited(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			card5.setBackground(null);
+        		}
+        	});
+        	
+        	card5.setOnMouseClicked(e ->
+        	{
+        		if(selectedCard==false)
+        		{
+        			selectedCard=true;
+        			card5.setBackground(new Background(new BackgroundFill(Color.YELLOW, new CornerRadii(5), new Insets(-3))));
+        		}
+        		else
+        		{
+        			card1.setBackground(null);
+        			card2.setBackground(null);
+        			card3.setBackground(null);
+        			card4.setBackground(null);
+        			card5.setBackground(null);
+        			selectedCard=false;
         		}
         	});
         	
