@@ -18,6 +18,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+import java.io.IOException;
+
 public class TAC_GUI extends Application {
 
 	Image startLogo = new Image("flower2.png");
@@ -25,6 +27,7 @@ public class TAC_GUI extends Application {
 	Functions functions=new Functions();
 	TextField tf_login = new TextField();
 	Alert alert = new Alert(AlertType.ERROR);
+	static String user2Name = "not connected";
 	
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -391,12 +394,18 @@ public class TAC_GUI extends Application {
 		pane.setCenter(vbox);
 
 		btn_host.setOnAction(e -> {
+			drawServerLobby(stage);
 			try {
-				new Board().start(stage);
-			} catch (Exception e1) {
-				e1.printStackTrace();
+				new Thread(new ClientSearch()).start();
+			} catch (IOException ioException) {
+				ioException.printStackTrace();
 			}
 		});
+
+		btn_join.setOnAction(e -> {
+			new Board().start(stage);
+            new Thread(new TAC_CLIENT(functions.showNameFunctions(tf_login.getText())));
+        });
 
 		btn_logout.setOnAction(e -> {
 			try {
@@ -417,6 +426,39 @@ public class TAC_GUI extends Application {
 		stage.setScene(scene);
 		stage.show();
 		
+	}
+
+	public void drawServerLobby(Stage stage) {
+		BorderPane pane = new BorderPane();
+		VBox connUsers = new VBox();
+		Label user1 = new Label(functions.showNameFunctions(tf_login.getText()));
+		Label user2 = new Label("not connected");
+		Label user3 = new Label("not connected");
+		Label user4 = new Label("not connected");
+		connUsers.getChildren().addAll(user1, user2, user3, user4);
+		connUsers.setAlignment(Pos.CENTER);
+		connUsers.setSpacing(10);
+
+		HBox buttons = new HBox();
+		Button btn_start = new Button("Starten");
+		btn_start.setMinWidth(100);
+
+		Button btn_close = new Button("Beenden");
+		btn_close.setMinWidth(100);
+
+		buttons.getChildren().addAll(btn_start, btn_close);
+		buttons.setAlignment(Pos.CENTER);
+		buttons.setSpacing(10);
+		buttons.setPadding(new Insets(0, 0, 20, 0));
+
+		pane.setCenter(connUsers);
+		pane.setBottom(buttons);
+
+		Scene scene = new Scene(pane, 800, 600);
+		stage.setTitle("TAC - Lobby");
+		stage.setResizable(false);
+		stage.setScene(scene);
+		stage.show();
 	}
 	public static void main(String[] args) {
 		launch(args);
